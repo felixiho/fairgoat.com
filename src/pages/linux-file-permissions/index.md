@@ -1,6 +1,6 @@
 ---
 title: Understanding Linux File Permissions
-date: '2019-07-16' 
+date: '2019-07-21' 
 spoiler: Blue Shirt. Blue Jeans.
 ---
 
