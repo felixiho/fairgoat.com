@@ -45,7 +45,10 @@ There are two notations for specifying the mode:
 ### Symbolic Notation
 To set permissions using symbolic notation, run:
 
-`chmod usercategoryOperatorPermission file`
+`chmod mode file`
+
+
+The `mode` here is a combination of the User Category, Operator and Permission.
 * User Category: The category which permissions are to be altered. The options include:
     1. `u` : user
     2. `g` : group
@@ -58,13 +61,61 @@ To set permissions using symbolic notation, run:
 * Permission: The permissions. `rwx`
 
 #### Examples  
+Say we have a file named der;
 
-|  Example | Description  |
-|---|---|
-|  `chmod g+w dummy.txt`  |   Add write permission to the files group |
-|  `chmod u-wr dummy.txt`  | Remove write and read for user  |
-|  `chmod u+rwx,g-w dummy.txt`  | Add all for user and remove write for group  |
-|  `chmod a=wr dummy.txt`  | Set all to write and read only  |
-|  `chmod u=rwx,o=  dummy.txt`  | Set user to rwx and set others to ---  |
+|  Example                    | Description                                |
+|-----------------------------|--------------------------------------------|
+|  `chmod g+w der`            |   Add write permission to the files group  |
+|  `chmod u-wr der`           | Remove write and read for user             |
+|  `chmod u+rwx,g-w der`      | Add all for user and remove write for group|
+|  `chmod a=wr der`           | Set all to write and read only             |
+|  `chmod o= der`             | Set others to ---                          |
 
-The Next post will be on Numeric Notation. Please reach out to me for corrections and questions on twitter.
+ 
+ ### Numeric Notation
+Let's start by representing the value for off with `0` and on with `1`. The table below shows the relationship betweeen the binary representation and string representation of permissions.
+
+|  Binary Representation      | String Representation                      |
+|-----------------------------|--------------------------------------------|
+|  0  | --- |
+|  1  | --x |
+|  10 | -w- |
+|  11 | -wx |
+|  100| r-- |
+|  101| r-x |
+|  110| rw- |
+|  111| rwx |
+
+To get a Numeric value that we can use with the `chmod` command, we convert the binary representation to base 10 or decimal. Hence:
+
+|  Binary Representation      | Octal Representation                      |
+|-----------------------------|--------------------------------------------|
+|  0  | 0 |
+|  1  | 1 |
+|  10 | 2 |
+|  11 | 3 |
+|  100| 4 |
+|  101| 5 |
+|  110| 6 |
+|  111| 7 |
+
+A quick way to remember this is to know that READ is 4, WRITE is 2 and EXECUTE is 1. Then to get the permission all you have to do is add the values for all 3. 
+
+Say I want to give a file read and write permissions, that'll be 4 + 2 = 6.
+
+Note that 0 means no read, write and execute permissions.
+
+
+|  Numeric Notation      | Symbolic Notation                      |
+|-----------------------------|--------------------------------------------|
+|  000  | ---------- |
+|  700  | -rwx-------|
+|  755 | -rwxr-xr-x |
+|  644 | -rw-r--r-- |
+|  766| -rwxrw-rw- |
+|  660| -rw-rw---- | 
+|  400| -r-------- |
+
+So to change the permissions using this, use `chmod 700 der` e.t.c
+
+
