@@ -22,7 +22,26 @@ To start the server, run `nodemon index`
 
 Go to https://localhost:4000 and you'll see something like this
 
-![GraphQL output](./graphql-server.png)
+![GraphQL output](./graphql-server-default.png)
+
+Copy and paste this inside the console and click on the play button.
+
+```javascript
+{
+  hostels{
+    name
+    location
+  }
+}
+```
+
+The response should look like this.
+![GraphQL response](./graphql-server-response.png)
+
+
+Next, we'll talk about implementing pagination on this response.
 
 ## Offset Pagination
+
+
 
