@@ -88,7 +88,7 @@ This skips the first two and returns the next 4 items.
 
 Offset pagination albeit easy to implement, might skip some results in scenerios where new endtries are added to the database during the query.
 
-This is where context pagination outshines it.
+This is where cursor pagination outshines it.
 
-## Context Pagination
+## Cursor Pagination
 
