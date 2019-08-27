@@ -42,6 +42,53 @@ The response should look like this.
 Next, we'll talk about implementing pagination on this response.
 
 ## Offset Pagination
+In offset pagination, we specify two parameters in our query; **first** and **offset**.
+
+**first** is an integer specifying the number of results you'd like to get. 
+
+**offset** is an interger that specifies the number of results you'd skip before invoking **first**.
+
+To implement this on our server, we update our hostels query type to
+
+```javascript
+type Query {
+    hostels (first: Int, offset: Int): [Hostel]
+  }
+```
+
+We also need to update the hostels resolvers to use the new arguments now being passed to it.
+
+```javascript
+const resolvers = {
+  Query: {
+    hostels:  (root, args) => {
+      const {first, offset} = args; 
+      const result =  offset === undefined ?
+                        hostels.splice(0, first)
+                          : hostels.splice(offset, first);
+      return result;
+    },
+  },
+}; 
+```
+
+To see the results, we modify the initial query like this before clicking on play.
 
 
+```javascript
+{
+  hostels(first: 4, offset: 2){
+    name
+    location
+  }
+}
+```
+
+This skips the first two and returns the next 4 items.
+
+Offset pagination albeit easy to implement, might skip some results in scenerios where new endtries are added to the database during the query.
+
+This is where context pagination outshines it.
+
+## Context Pagination
 
