@@ -86,7 +86,11 @@ To see the results, we modify the initial query like this before clicking on pla
 
 This skips the first two and returns the next 4 items.
 
-Offset pagination albeit easy to implement, might skip some results in scenerios where new endtries are added to the database during the query.
+To see the completed code, checkout to branch step3.
+
+  `git checkout step3`.
+
+Offset pagination albeit easy to implement, might skip some results in scenerios where new entries are added to the database during the query.
 
 This is where cursor pagination outshines it.
 
