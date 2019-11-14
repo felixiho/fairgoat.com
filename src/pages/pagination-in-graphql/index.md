@@ -86,13 +86,31 @@ To see the results, we modify the initial query like this before clicking on pla
 
 This skips the first two and returns the next 4 items.
 
-To see the completed code, checkout to branch step3.
+To see the completed code, checkout to branch step2.
 
-  `git checkout step3`.
+  `git checkout step2`.
 
 Offset pagination albeit easy to implement, might skip some results in scenerios where new entries are added to the database during the query.
 
 This is where cursor pagination outshines it.
 
-## Cursor Pagination
+## Cursor Pagination 
+In cursor pagination, we specify a 'cursor' that tells the server where to start getting data from. A new cursor variable is returned everytime the server responds to your query. This cursor variable is then passed to the next query. Note that we can still pass a limit as a variable.
 
+
+A cursor can be any variable from a timestamp to an Id. Nonetheless, timestamps are preferred because it solves our problem of new data being added or existing data being deleted during our query processes as seen in offset pagination. 
+
+First, We update our query to include the `createdAt` field.
+
+```javascript
+{
+  hostels(first: 4) {
+    name
+    location
+    createdAt
+  }
+}
+
+```
+
+The response now contains the date which each item was created. Next we write the resolver.
